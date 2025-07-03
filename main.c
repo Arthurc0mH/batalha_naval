@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-//eu vou ficar maluco
-
 void imprimir(int tabuleiro1[6][6], int *jogador, int tabuleiro2[6][6]);
 void colocar_pecas(int tabuleiro1[6][6], int *jogador, int pecas1[3], int plataforma, int tabuleiro2[6][6], int pecas2[3]);
 void limpar_tela(int plataforma);
@@ -11,19 +9,29 @@ void converter_y(int *y2, char *y);
 int main(){
     int tabuleiro1[6][6]; int tabuleiro2[6][6];
     int pecas1[3]; int pecas2[3];
-    int fim = 0; int jogador = 1; int plataforma;
+    int fim = 0; int jogador = 0; int plataforma;
+    pecas1[0] = 3; pecas1[1] = 2; pecas1[2] = 1; pecas2[0] = 3; pecas2[1] = 2; pecas2[2] = 1;
     for(int i = 0; i < 6; i++){
         if(i < 3){
-            pecas1[i] = 3;
         }
         for(int j = 0; j < 6; j++){
             tabuleiro1[i][j] = 0;
+            tabuleiro2[i][j] = 0;
         }
     }
     printf("Qual sistema operacional voce esta usando?\n1) Windows\n2) Linux\n");
     scanf("%d", &plataforma);
+    if(plataforma == 3){
+        printf("modo debug\n");
+        pecas1[0] = 1; pecas1[1] = 1; pecas1[2] = 1; pecas2[0] = 1; pecas2[1] = 1; pecas2[2] = 1;
+        plataforma = 1;
+    }
     limpar_tela(plataforma);
+
     while(fim == 0){
+        colocar_pecas(tabuleiro1, &jogador, pecas1, plataforma, tabuleiro2, pecas2);
+        limpar_tela(plataforma);
+        jogador = 1;
         colocar_pecas(tabuleiro1, &jogador, pecas1, plataforma, tabuleiro2, pecas2);
 
         fim++;
@@ -34,7 +42,7 @@ int main(){
 
 void imprimir(int tabuleiro1[6][6], int *jogador, int tabuleiro2[6][6]){
     //imprime o tabuleiro1
-    if(*jogador == 0){
+    if(*jogador == 0 || *jogador == 2){
         printf(" Jogador numero 1\n");
         printf("  A  B  C  D  E  F\n");
         for(int i = 0; i < 6; i++){
@@ -64,7 +72,7 @@ void imprimir(int tabuleiro1[6][6], int *jogador, int tabuleiro2[6][6]){
             printf("\n");
         }
     }
-    if(*jogador == 1){ //imprime o tabuleiro 2
+    if(*jogador == 1 || *jogador == 3){ //imprime o tabuleiro 2
         printf(" Jogador numero 2\n");
         printf("  A  B  C  D  E  F\n");
         for(int i = 0; i < 6; i++){
@@ -102,8 +110,9 @@ void colocar_pecas(int tabuleiro1[6][6], int *jogador, int pecas1[3], int plataf
         int x, y2, temp = 0;
         char y;
         int orientacao_peca = 0;
+        int turno0 = 0;
         while(temp == 0){
-            if(pecas1[0] > 0 && pecas1[1] > 0 && pecas1[2] > 0){
+            if(turno0 == 0){
                 imprimir(tabuleiro1, jogador, tabuleiro2);
                 printf("1) colocar peca 1x1 (%d)\n2) colocar peca 1x2 (%d)\n3) colocar peca 1x3 (%d)\n", pecas1[0], pecas1[1], pecas1[2]);
                 scanf("%d", &input);
@@ -114,7 +123,7 @@ void colocar_pecas(int tabuleiro1[6][6], int *jogador, int pecas1[3], int plataf
                         converter_y(&y2, &y);
 
                         if(tabuleiro1[x - 1][y2] == 0){
-                            tabuleiro1[x - 1][y2] = 11;
+                            tabuleiro1[x - 1][y2] = 1;
                             pecas1[0] = pecas1[0] - 1;
                         }else{
                             limpar_tela(plataforma);
@@ -176,7 +185,7 @@ void colocar_pecas(int tabuleiro1[6][6], int *jogador, int pecas1[3], int plataf
                             tabuleiro1[x - 1][y2] = 1;
                             tabuleiro1[x - 1][y2 + 1] = 1;
                             tabuleiro1[x - 1][y2 + 2] = 1;
-                            pecas1[1] = pecas1[1] - 1;
+                            pecas1[2] = pecas1[2] - 1;
                         }else{
                             limpar_tela(plataforma);
                             printf("Esta casa esta ocupada!\n");
@@ -186,17 +195,18 @@ void colocar_pecas(int tabuleiro1[6][6], int *jogador, int pecas1[3], int plataf
                             tabuleiro1[x - 1][y2] = 1;
                             tabuleiro1[x][y2] = 1;
                             tabuleiro1[x + 1][y2] = 1;
-                            pecas1[1] = pecas1[1] - 1;
+                            pecas1[2] = pecas1[2] - 1;
                         }else{
                             limpar_tela(plataforma);
                             printf("Esta casa esta ocupada!\n");
                         }
                     }
                 }
-
+                if(pecas1[0] == 0 && pecas1[1] == 0 && pecas1[2] == 0){
+                    turno0++;
+                }
             }else{
                 temp++;
-                *jogador++;
             }
         }
     }else if(*jogador == 1){ //jogador 2
@@ -204,8 +214,9 @@ void colocar_pecas(int tabuleiro1[6][6], int *jogador, int pecas1[3], int plataf
         int x, y2, temp = 0;
         char y;
         int orientacao_peca = 0;
+        int turno0 = 0;
         while(temp == 0){
-            if(pecas2[0] > 0 && pecas2[1] > 0 && pecas2[2] > 0){
+            if(turno0 == 0){
                 imprimir(tabuleiro1, jogador, tabuleiro2);
                 printf("1) colocar peca 1x1 (%d)\n2) colocar peca 1x2 (%d)\n3) colocar peca 1x3 (%d)\n", pecas2[0], pecas2[1], pecas2[2]);
                 scanf("%d", &input);
@@ -216,7 +227,7 @@ void colocar_pecas(int tabuleiro1[6][6], int *jogador, int pecas1[3], int plataf
                         converter_y(&y2, &y);
 
                         if(tabuleiro2[x - 1][y2] == 0){
-                            tabuleiro2[x - 1][y2] = 11;
+                            tabuleiro2[x - 1][y2] = 1;
                             pecas2[0] = pecas2[0] - 1;
                         }else{
                             limpar_tela(plataforma);
@@ -278,7 +289,7 @@ void colocar_pecas(int tabuleiro1[6][6], int *jogador, int pecas1[3], int plataf
                             tabuleiro2[x - 1][y2] = 1;
                             tabuleiro2[x - 1][y2 + 1] = 1;
                             tabuleiro2[x - 1][y2 + 2] = 1;
-                            pecas2[1] = pecas2[1] - 1;
+                            pecas2[2] = pecas2[2] - 1;
                         }else{
                             limpar_tela(plataforma);
                             printf("Esta casa esta ocupada!\n");
@@ -288,17 +299,18 @@ void colocar_pecas(int tabuleiro1[6][6], int *jogador, int pecas1[3], int plataf
                             tabuleiro2[x - 1][y2] = 1;
                             tabuleiro2[x][y2] = 1;
                             tabuleiro2[x + 1][y2] = 1;
-                            pecas2[1] = pecas2[1] - 1;
+                            pecas2[2] = pecas2[2] - 1;
                         }else{
                             limpar_tela(plataforma);
                             printf("Esta casa esta ocupada!\n");
                         }
                     }
                 }
-
+                if(pecas2[0] == 0 && pecas2[1] == 0 && pecas2[2] == 0){
+                    turno0++;
+                }
             }else{
                 temp++;
-                *jogador++;
             }
         }
     }
