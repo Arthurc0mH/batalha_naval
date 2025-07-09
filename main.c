@@ -177,23 +177,33 @@ void colocar_pecas(int tabuleiro1[6][6], int *jogador, int pecas1[3], int plataf
                     printf("Onde voce quer colocar a peca? (linha, coluna. Ex: 1a)\n");
                     scanf("%d %c", &x, &y);
                     converter_y(&y2, &y);
-                    if(orientacao_peca == 1){
-                        if(tabuleiro1[x - 1][y2] == 0 && tabuleiro1[x - 1][y2 + 1] == 0){
-                            tabuleiro1[x - 1][y2] = 1;
-                            tabuleiro1[x - 1][y2 + 1] = 1;
-                            pecas1[1] = pecas1[1] - 1;
+                    if(orientacao_peca == 1){ //horizontal
+                        if(y2 != 5){
+                            if(tabuleiro1[x - 1][y2] == 0 && tabuleiro1[x - 1][y2 + 1] == 0){
+                                tabuleiro1[x - 1][y2] = 1;
+                                tabuleiro1[x - 1][y2 + 1] = 1;
+                                pecas1[1] = pecas1[1] - 1;
+                            }else{
+                                limpar_tela(plataforma);
+                                printf("Esta casa esta ocupada!\n");
+                            }
                         }else{
                             limpar_tela(plataforma);
-                            printf("Esta casa esta ocupada!\n");
+                            printf("Valor inválido!\n");
                         }
-                    }else{
-                        if(tabuleiro1[x - 1][y2] == 0 && tabuleiro1[x][y2] == 0){
-                            tabuleiro1[x - 1][y2] = 1;
-                            tabuleiro1[x][y2] = 1;
-                            pecas1[1] = pecas1[1] - 1;
+                    }else{ //vertical
+                        if(x-1 != 5){
+                            if(tabuleiro1[x - 1][y2] == 0 && tabuleiro1[x][y2] == 0){
+                                tabuleiro1[x - 1][y2] = 1;
+                                tabuleiro1[x][y2] = 1;
+                                pecas1[1] = pecas1[1] - 1;
+                            }else{
+                                limpar_tela(plataforma);
+                                printf("Esta casa esta ocupada!\n");
+                            }
                         }else{
                             limpar_tela(plataforma);
-                            printf("Esta casa esta ocupada!\n");
+                            printf("Valor inválido!\n");
                         }
                     }
                 }else{ // 1x3
@@ -210,25 +220,35 @@ void colocar_pecas(int tabuleiro1[6][6], int *jogador, int pecas1[3], int plataf
                     printf("Onde voce quer colocar a peca? (linha, coluna. Ex: 1a)\n");
                     scanf("%d %c", &x, &y);
                     converter_y(&y2, &y);
-                    if(orientacao_peca == 1){
-                        if(tabuleiro1[x - 1][y2] == 0 && tabuleiro1[x - 1][y2 + 1] == 0 && tabuleiro1[x - 1][y2 + 2] == 0){
-                            tabuleiro1[x - 1][y2] = 1;
-                            tabuleiro1[x - 1][y2 + 1] = 1;
-                            tabuleiro1[x - 1][y2 + 2] = 1;
-                            pecas1[2] = pecas1[2] - 1;
+                    if(orientacao_peca == 1){ //horizontal
+                        if(y2 < 4){
+                            if(tabuleiro1[x - 1][y2] == 0 && tabuleiro1[x - 1][y2 + 1] == 0 && tabuleiro1[x - 1][y2 + 2] == 0){
+                                tabuleiro1[x - 1][y2] = 1;
+                                tabuleiro1[x - 1][y2 + 1] = 1;
+                                tabuleiro1[x - 1][y2 + 2] = 1;
+                                pecas1[2] = pecas1[2] - 1;
+                            }else{
+                                limpar_tela(plataforma);
+                                printf("Esta casa esta ocupada!\n");
+                            }
                         }else{
                             limpar_tela(plataforma);
-                            printf("Esta casa esta ocupada!\n");
+                            printf("Valor inválido!\n");
                         }
-                    }else{
-                        if(tabuleiro1[x - 1][y2] == 0 && tabuleiro1[x][y2] == 0 && tabuleiro1[x + 1][y2] == 0){
-                            tabuleiro1[x - 1][y2] = 1;
-                            tabuleiro1[x][y2] = 1;
-                            tabuleiro1[x + 1][y2] = 1;
-                            pecas1[2] = pecas1[2] - 1;
+                    }else{ //vertical
+                        if(x-1 < 4){
+                            if(tabuleiro1[x - 1][y2] == 0 && tabuleiro1[x][y2] == 0 && tabuleiro1[x + 1][y2] == 0){
+                                tabuleiro1[x - 1][y2] = 1;
+                                tabuleiro1[x][y2] = 1;
+                                tabuleiro1[x + 1][y2] = 1;
+                                pecas1[2] = pecas1[2] - 1;
+                            }else{
+                                limpar_tela(plataforma);
+                                printf("Esta casa esta ocupada!\n");
+                            }
                         }else{
                             limpar_tela(plataforma);
-                            printf("Esta casa esta ocupada!\n");
+                            printf("Valor inválido!\n");
                         }
                     }
                 }
@@ -281,23 +301,33 @@ void colocar_pecas(int tabuleiro1[6][6], int *jogador, int pecas1[3], int plataf
                     printf("Onde voce quer colocar a peca? (linha, coluna. Ex: 1a)\n");
                     scanf("%d %c", &x, &y);
                     converter_y(&y2, &y);
-                    if(orientacao_peca == 1){
-                        if(tabuleiro2[x - 1][y2] == 0 && tabuleiro2[x - 1][y2 + 1] == 0){
-                            tabuleiro2[x - 1][y2] = 1;
-                            tabuleiro2[x - 1][y2 + 1] = 1;
-                            pecas2[1] = pecas2[1] - 1;
+                    if(orientacao_peca == 1){ //horizontal
+                        if(y2 != 5){
+                            if(tabuleiro2[x - 1][y2] == 0 && tabuleiro2[x - 1][y2 + 1] == 0){
+                                tabuleiro2[x - 1][y2] = 1;
+                                tabuleiro2[x - 1][y2 + 1] = 1;
+                                pecas2[1] = pecas2[1] - 1;
+                            }else{
+                                limpar_tela(plataforma);
+                                printf("Esta casa esta ocupada!\n");
+                            }
                         }else{
                             limpar_tela(plataforma);
-                            printf("Esta casa esta ocupada!\n");
+                            printf("Valor inválido!\n");
                         }
-                    }else{
-                        if(tabuleiro2[x - 1][y2] == 0 && tabuleiro2[x][y2] == 0){
-                            tabuleiro2[x - 1][y2] = 1;
-                            tabuleiro2[x][y2] = 1;
-                            pecas2[1] = pecas2[1] - 1;
+                    }else{ //vertical
+                        if(x-1 != 5){
+                            if(tabuleiro2[x - 1][y2] == 0 && tabuleiro2[x][y2] == 0){
+                                tabuleiro2[x - 1][y2] = 1;
+                                tabuleiro2[x][y2] = 1;
+                                pecas2[1] = pecas2[1] - 1;
+                            }else{
+                                limpar_tela(plataforma);
+                                printf("Esta casa esta ocupada!\n");
+                            }
                         }else{
                             limpar_tela(plataforma);
-                            printf("Esta casa esta ocupada!\n");
+                            printf("Valor inválido!\n");
                         }
                     }
                 }else{ // 1x3
@@ -314,25 +344,35 @@ void colocar_pecas(int tabuleiro1[6][6], int *jogador, int pecas1[3], int plataf
                     printf("Onde voce quer colocar a peca? (linha, coluna. Ex: 1a)\n");
                     scanf("%d %c", &x, &y);
                     converter_y(&y2, &y);
-                    if(orientacao_peca == 1){
-                        if(tabuleiro2[x - 1][y2] == 0 && tabuleiro2[x - 1][y2 + 1] == 0 && tabuleiro2[x - 1][y2 + 2] == 0){
-                            tabuleiro2[x - 1][y2] = 1;
-                            tabuleiro2[x - 1][y2 + 1] = 1;
-                            tabuleiro2[x - 1][y2 + 2] = 1;
-                            pecas2[2] = pecas2[2] - 1;
+                    if(orientacao_peca == 1){ //horizontal
+                        if(y2 < 4){
+                            if(tabuleiro2[x - 1][y2] == 0 && tabuleiro2[x - 1][y2 + 1] == 0 && tabuleiro2[x - 1][y2 + 2] == 0){
+                                tabuleiro2[x - 1][y2] = 1;
+                                tabuleiro2[x - 1][y2 + 1] = 1;
+                                tabuleiro2[x - 1][y2 + 2] = 1;
+                                pecas2[2] = pecas2[2] - 1;
+                            }else{
+                                limpar_tela(plataforma);
+                                printf("Esta casa esta ocupada!\n");
+                            }
                         }else{
                             limpar_tela(plataforma);
-                            printf("Esta casa esta ocupada!\n");
+                            printf("Valor inválido!\n");
                         }
-                    }else{
-                        if(tabuleiro2[x - 1][y2] == 0 && tabuleiro2[x][y2] == 0 && tabuleiro2[x + 1][y2] == 0){
-                            tabuleiro2[x - 1][y2] = 1;
-                            tabuleiro2[x][y2] = 1;
-                            tabuleiro2[x + 1][y2] = 1;
-                            pecas2[2] = pecas2[2] - 1;
+                    }else{ //vertical
+                        if(x-1 < 4){
+                            if(tabuleiro2[x - 1][y2] == 0 && tabuleiro2[x][y2] == 0 && tabuleiro2[x + 1][y2] == 0){
+                                tabuleiro2[x - 1][y2] = 1;
+                                tabuleiro2[x][y2] = 1;
+                                tabuleiro2[x + 1][y2] = 1;
+                                pecas2[2] = pecas2[2] - 1;
+                            }else{
+                                limpar_tela(plataforma);
+                                printf("Esta casa esta ocupada!\n");
+                            }
                         }else{
                             limpar_tela(plataforma);
-                            printf("Esta casa esta ocupada!\n");
+                            printf("Valor inválido!\n");
                         }
                     }
                 }
