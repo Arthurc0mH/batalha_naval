@@ -49,32 +49,32 @@ void imprimir(int tabuleiro1[10][10], int *jogador, int tabuleiro2[10][10]){
     //imprime o tabuleiro1
     if(*jogador == 0 || *jogador == 2){
         printf(" Jogador numero 1\n");
-        printf("  A  B  C  D  E  F  G  H  I  J\n");
+        printf("   A  B  C  D  E  F  G  H  I  J\n");
         for(int i = 0; i < 10; i++){
             for(int j = 0; j < 10; j++){
                 if(j == 0){
                    if(i == 0){
-                        printf("1 ");
+                        printf("1  ");
                     }else if(i == 1){
-                        printf("2 ");
+                        printf("2  ");
                     }else if(i == 2){
-                        printf("3 ");
+                        printf("3  ");
                     }else if(i == 3){
-                        printf("4 ");
+                        printf("4  ");
                     }else if(i == 4){
-                        printf("5 ");
+                        printf("5  ");
                     }else if(i == 5){
-                        printf("6 ");
+                        printf("6  ");
                     }else if(i == 6){
-                        printf("7 ");
+                        printf("7  ");
                     }else if(i == 7){
-                        printf("8 ");
+                        printf("8  ");
                     }else if(i == 8){
-                        printf("9 ");
+                        printf("9  ");
                     }else if(i == 9){
                         printf("10 ");
                     }
-                }
+               }
                 if(tabuleiro1[i][j] == 0){
                     printf("0  "); //talvez não tenha nada no espaço 
                 }else if(tabuleiro1[i][j] == 1){
@@ -91,6 +91,8 @@ void imprimir(int tabuleiro1[10][10], int *jogador, int tabuleiro2[10][10]){
                     printf("DE "); //tinha uma peça sua que foi destruída, e não tem uma peça do seu oponente
                 }else if(tabuleiro1[i][j] == 7){
                     printf("E  "); //não tem uma peça do oponente no espaço (não tem nada nesse espaço)
+                }else if(tabuleiro1[i][j] == 8){
+                    printf("X  "); //matou uma peça do oponente
                 }
                 
             }
@@ -100,34 +102,34 @@ void imprimir(int tabuleiro1[10][10], int *jogador, int tabuleiro2[10][10]){
     }
     if(*jogador == 1 || *jogador == 3){ //imprime o tabuleiro 2
         printf(" Jogador numero 2\n");
-        printf("  A  B  C  D  E  F  G  H  I  J\n");
+        printf("   A  B  C  D  E  F  G  H  I  J\n");
         for(int i = 0; i < 10; i++){
             for(int j = 0; j < 10; j++){
                 if(j == 0){
                    if(i == 0){
-                        printf("1 ");
+                        printf("1  ");
                     }else if(i == 1){
-                        printf("2 ");
+                        printf("2  ");
                     }else if(i == 2){
-                        printf("3 ");
+                        printf("3  ");
                     }else if(i == 3){
-                        printf("4 ");
+                        printf("4  ");
                     }else if(i == 4){
-                        printf("5 ");
+                        printf("5  ");
                     }else if(i == 5){
-                        printf("6 ");
+                        printf("6  ");
                     }else if(i == 6){
-                        printf("7 ");
+                        printf("7  ");
                     }else if(i == 7){
-                        printf("8 ");
+                        printf("8  ");
                     }else if(i == 8){
-                        printf("9 ");
+                        printf("9  ");
                     }else if(i == 9){
                         printf("10 ");
                     }
                 }
                 if(tabuleiro2[i][j] == 0){
-                    printf("0  "); //to com preguiça de comentar tudo de novo, mas funciona igual o do jogador 1
+                    printf("0  ");
                 }else if(tabuleiro2[i][j] == 1){
                     printf("1  ");
                 }else if(tabuleiro2[i][j] == 2){
@@ -142,6 +144,8 @@ void imprimir(int tabuleiro1[10][10], int *jogador, int tabuleiro2[10][10]){
                     printf("DE ");
                 }else if(tabuleiro2[i][j] == 7){
                     printf("E  ");
+                }else if(tabuleiro2[i][j] == 8){
+                    printf("X  ");
                 }
             }
             printf(" ");
@@ -466,9 +470,11 @@ void jogo(int plataforma, int tabuleiro1[10][10], int tabuleiro2[10][10], int *j
                     *jogador = 3;
                 }else if(tabuleiro2[x-1][y2] == 1 || tabuleiro2[x-1][y2] == 2 || tabuleiro2[x-1][y2] == 3){ //acertou
                     if(tabuleiro1[x-1][y2] == 0){
-                        tabuleiro1[x-1][y2] = 2; //0 -> X
+                        tabuleiro1[x-1][y2] = 8; //0 -> X
                     }else if(tabuleiro1[x-1][y2] == 1){
                         tabuleiro1[x-1][y2] = 2; //1 -> 1X
+                    }else if(tabuleiro1[x-1][y2] == 4){
+                        tabuleiro1[x-1][y2] = 5; //D -> DX
                     }
                     if(tabuleiro2[x-1][y2] == 1){
                         tabuleiro2[x-1][y2] = 4; //1 -> D
@@ -481,6 +487,8 @@ void jogo(int plataforma, int tabuleiro1[10][10], int tabuleiro2[10][10], int *j
                     if(pontos[0] == a[0]){
                         turno0++; //caso o jogador ganhe antes de poder jogar de novo
                     }
+                }else if(tabuleiro2[x-1][y2] == 4 || tabuleiro2[x-1][y2] == 5 || tabuleiro2[x-1][y2] == 6 || tabuleiro2[x-1][y2] == 7){
+                    printf("Esta casa ja teve uma peca destruida!\n"); //isso não vai nem printar, mas to com preguiça de fazer funcionar
                 }
             }else if(*jogador == 3){ //jogador2
                 limpar_tela(plataforma);
@@ -500,9 +508,11 @@ void jogo(int plataforma, int tabuleiro1[10][10], int tabuleiro2[10][10], int *j
                     *jogador = 2;
                 }else if(tabuleiro1[x-1][y2] == 1 || tabuleiro1[x-1][y2] == 2 || tabuleiro1[x-1][y2] == 3){ //acertou
                     if(tabuleiro2[x-1][y2] == 0){
-                        tabuleiro2[x-1][y2] = 2; //0 -> X
+                        tabuleiro2[x-1][y2] = 8; //0 -> X
                     }else if(tabuleiro2[x-1][y2] == 1){
                         tabuleiro2[x-1][y2] = 2; //1 -> 1X
+                    }else if(tabuleiro2[x-1][y2] == 4){
+                        tabuleiro2[x-1][y2] = 5; //D -> DX
                     }
                     if(tabuleiro1[x-1][y2] == 1){
                         tabuleiro1[x-1][y2] = 4; //1 -> D
@@ -514,7 +524,9 @@ void jogo(int plataforma, int tabuleiro1[10][10], int tabuleiro2[10][10], int *j
                     pontos[1]++;
                     if(pontos[1] == a[1]){
                         turno0++; //caso o jogador ganhe antes de poder jogar de novo
-                    }
+                    }else if(tabuleiro1[x-1][y2] == 4 || tabuleiro1[x-1][y2] == 5 || tabuleiro1[x-1][y2] == 6 || tabuleiro1[x-1][y2] == 7){
+                    printf("Esta casa ja teve uma peca destruida!\n"); //isso não vai nem printar, mas to com preguiça de fazer funcionar
+                }
                 }
             }
         }else{
